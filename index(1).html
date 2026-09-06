@@ -1,0 +1,1343 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Materi Ajar Interaktif - Proses Pengaturan pada Tumbuhan | LBB Kelas Pintar Orion</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Chart.js for Lab Data -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- MathJax for Rendering Math & Chemical Formulas -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        },
+                        orion: {
+                            blue: '#0284c7',
+                            purple: '#7c3aed',
+                            amber: '#f59e0b',
+                            dark: '#0f172a'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+        .tab-btn.active {
+            background-color: #16a34a;
+            color: white;
+            box-shadow: 0 4px 12px rgba(22, 163, 74, 0.25);
+        }
+        .subtab-btn.active {
+            border-bottom: 3px solid #16a34a;
+            color: #15803d;
+            font-weight: 700;
+        }
+        @keyframes pulse-slow {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.85; transform: scale(1.02); }
+        }
+        .pulse-element { animation: pulse-slow 3s infinite; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-brand-500 selection:text-white min-h-screen flex flex-col">
+
+    <!-- HEADER BRANDING -->
+    <header class="sticky top-0 z-50 bg-white/95 backdrop-filter backdrop-blur-md border-b border-slate-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo & Title -->
+            <div class="flex items-center space-x-3">
+                <div class="w-12 h-12 bg-gradient-to-tr from-brand-600 to-teal-500 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-brand-500/30">
+                    <i class="fa-solid font-bold fa-seedling text-2xl"></i>
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs font-bold uppercase tracking-wider bg-brand-100 text-brand-800 px-2.5 py-0.5 rounded-full border border-brand-200">Biologi SMA XI</span>
+                        <span class="text-xs font-semibold text-amber-600 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200"><i class="fa-solid fa-star text-amber-500 mr-1"></i>Orion Smart Learning</span>
+                    </div>
+                    <h1 class="text-lg font-extrabold text-slate-900 leading-tight">Proses Pengaturan pada Tumbuhan</h1>
+                </div>
+            </div>
+
+            <!-- Author Badge -->
+            <div class="hidden md:flex items-center gap-3 bg-slate-100 px-3.5 py-1.5 rounded-xl border border-slate-200">
+                <i class="fa-solid fa-user-gear text-brand-600 text-lg"></i>
+                <div class="text-left">
+                    <p class="text-[10px] uppercase tracking-wider text-slate-500 font-semibold">Penyusun</p>
+                    <p class="text-xs font-bold text-slate-800">Tim LBB Kelas Pintar Orion</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- MAIN NAVIGATION TABS -->
+        <nav class="bg-slate-900 text-white shadow-inner">
+            <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 overflow-x-auto">
+                <div class="flex space-x-1 sm:space-x-2 py-2 min-w-max">
+                    <button onclick="switchTab('pendahuluan')" id="nav-pendahuluan" class="tab-btn active px-4 py-2.5 rounded-xl text-sm font-semibold flex items-center gap-2 transition-all">
+                        <i class="fa-solid fa-compass"></i> 1. Pendahuluan
+                    </button>
+                    <button onclick="switchTab('materi')" id="nav-materi" class="tab-btn px-4 py-2.5 hover:bg-slate-800 rounded-xl text-sm font-semibold flex items-center gap-2 transition-all">
+                        <i class="fa-solid fa-book-open"></i> 2. Materi Pembelajaran
+                    </button>
+                    <button onclick="switchTab('vlab')" id="nav-vlab" class="tab-btn px-4 py-2.5 hover:bg-slate-800 rounded-xl text-sm font-semibold flex items-center gap-2 transition-all">
+                        <i class="fa-solid fa-flask-vial"></i> 3. Lab Virtual Transpirasi
+                    </button>
+                    <button onclick="switchTab('lkpd')" id="nav-lkpd" class="tab-btn px-4 py-2.5 hover:bg-slate-800 rounded-xl text-sm font-semibold flex items-center gap-2 transition-all">
+                        <i class="fa-solid fa-file-pen"></i> 4. LKPD Digital
+                    </button>
+                    <button onclick="switchTab('quiz')" id="nav-quiz" class="tab-btn px-4 py-2.5 hover:bg-slate-800 rounded-xl text-sm font-semibold flex items-center gap-2 transition-all">
+                        <i class="fa-solid fa-graduation-cap"></i> 5. Evaluasi & Quiz
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <!-- ================================================================= -->
+        <!-- TAB 1: PENDAHULUAN -->
+        <!-- ================================================================= -->
+        <section id="tab-pendahuluan" class="tab-content space-y-8">
+            <!-- Hero Banner -->
+            <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-emerald-800 via-teal-800 to-slate-900 text-white p-8 md:p-12 shadow-2xl">
+                <div class="relative z-10 max-w-3xl space-y-4">
+                    <div class="inline-flex items-center gap-2 bg-emerald-500/20 backdrop-blur-md px-3 py-1 rounded-full border border-emerald-400/30 text-emerald-300 text-xs font-bold">
+                        <i class="fa-solid fa-leaf"></i> Kurikulum Merdeka - Biologi Kelas XI
+                    </div>
+                    <h2 class="text-3xl md:text-5xl font-black tracking-tight leading-tight">
+                        Bagaimana Tumbuhan Mengatur Kehidupannya Tanpa Saraf?
+                    </h2>
+                    <p class="text-slate-300 text-base md:text-lg leading-relaxed">
+                        Tumbuhan tidak memiliki otak atau otot, namun mampu merespons cahaya, menyerap air puluhan meter ke atas, hingga menutup pori daun saat kekeringan. Mari selami mekanisme biologis dibalik fisiologi luar biasa tumbuhan!
+                    </p>
+                    <div class="pt-4 flex flex-wrap gap-4">
+                        <button onclick="switchTab('materi')" class="bg-brand-500 hover:bg-brand-600 text-white font-bold px-6 py-3 rounded-xl shadow-lg transition-all flex items-center gap-2">
+                            Mulai Belajar Materi <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                        <button onclick="switchTab('vlab')" class="bg-white/10 hover:bg-white/20 text-white font-semibold px-6 py-3 rounded-xl border border-white/20 backdrop-blur-sm transition-all flex items-center gap-2">
+                            <i class="fa-solid fa-flask text-emerald-400"></i> Uji Coba Lab Virtual
+                        </button>
+                    </div>
+                </div>
+                <!-- Background Graphic Element -->
+                <div class="absolute -right-12 -bottom-12 text-emerald-500/10 pointer-events-none">
+                    <i class="fa-solid fa-tree text-[320px]"></i>
+                </div>
+            </div>
+
+            <!-- Modul Identity Card -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="glass-card rounded-2xl p-6 border-l-4 border-l-brand-500 shadow-md">
+                    <div class="flex items-center gap-3 text-brand-700 font-bold mb-2">
+                        <i class="fa-solid fa-bullseye text-xl"></i> Capaian Pembelajaran (CP)
+                    </div>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        Peserta didik menganalisis hubungan antara struktur jaringan tumbuhan dengan fungsi organ tumbuhan dalam pengaturan transportasi, transpirasi, hormon, dan respon gerak tumbuhan.
+                    </p>
+                </div>
+                <div class="glass-card rounded-2xl p-6 border-l-4 border-l-orion-blue shadow-md">
+                    <div class="flex items-center gap-3 text-orion-blue font-bold mb-2">
+                        <i class="fa-solid fa-list-check text-xl"></i> Tujuan Pembelajaran (TP)
+                    </div>
+                    <ul class="text-sm text-slate-600 space-y-2 list-disc list-inside">
+                        <li>Menganalisis mekanisme transport air dan nutrisi melalui Xilem & Floem.</li>
+                        <li>Menjelaskan mekanisme turgor pada pembukaan stomata.</li>
+                        <li>Mengidentifikasi fungsi 7 hormon utama tumbuhan (Fitohormon).</li>
+                        <li>Membedakan respon gerak Tropisme, Nasti, dan Taktis.</li>
+                    </ul>
+                </div>
+                <div class="glass-card rounded-2xl p-6 border-l-4 border-l-orion-purple shadow-md">
+                    <div class="flex items-center gap-3 text-orion-purple font-bold mb-2">
+                        <i class="fa-solid fa-chalkboard-user text-xl"></i> Informasi Modul
+                    </div>
+                    <div class="text-sm text-slate-600 space-y-1.5">
+                        <p><strong class="text-slate-800">Sasaran:</strong> SMA / MA Kelas XI</p>
+                        <p><strong class="text-slate-800">Alokasi Waktu:</strong> 4 x 45 Menit (2 Pertemuan)</p>
+                        <p><strong class="text-slate-800">Penyusun:</strong> Tim LBB Kelas Pintar Orion</p>
+                        <p><strong class="text-slate-800">Metode:</strong> Interactive Virtual Lab & HOTS Case Study</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Concept Map (Interactive) -->
+            <div class="bg-white rounded-3xl p-6 md:p-8 shadow-xl border border-slate-200">
+                <div class="flex items-center justify-between mb-6">
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+                            <i class="fa-solid fa-sitemap text-brand-600"></i> Peta Konsep Pengaturan Tumbuhan
+                        </h3>
+                        <p class="text-sm text-slate-500">Klik setiap bagian untuk membaca ringkasan materi terkait</p>
+                    </div>
+                    <span class="bg-brand-50 text-brand-700 font-bold text-xs px-3 py-1 rounded-full border border-brand-200">Interaktif</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 text-center">
+                    <!-- Concept Item 1 -->
+                    <div onclick="showConceptDetail('transport')" class="cursor-pointer bg-emerald-50 hover:bg-emerald-100 border-2 border-emerald-200 p-5 rounded-2xl transition-all transform hover:-translate-y-1 shadow-sm">
+                        <div class="w-12 h-12 bg-emerald-500 text-white rounded-xl flex items-center justify-center mx-auto mb-3 shadow">
+                            <i class="fa-solid fa-water text-xl"></i>
+                        </div>
+                        <h4 class="font-bold text-emerald-900 text-base">1. Transportasi Air & Nutrisi</h4>
+                        <p class="text-xs text-emerald-700 mt-1">Kapilaritas, Xilem, Floem, Osmosis</p>
+                    </div>
+
+                    <!-- Concept Item 2 -->
+                    <div onclick="showConceptDetail('transpirasi')" class="cursor-pointer bg-teal-50 hover:bg-teal-100 border-2 border-teal-200 p-5 rounded-2xl transition-all transform hover:-translate-y-1 shadow-sm">
+                        <div class="w-12 h-12 bg-teal-500 text-white rounded-xl flex items-center justify-center mx-auto mb-3 shadow">
+                            <i class="fa-solid fa-wind text-xl"></i>
+                        </div>
+                        <h4 class="font-bold text-teal-900 text-base">2. Transpirasi & Stomata</h4>
+                        <p class="text-xs text-teal-700 mt-1">Sel Penjaga, Tekanan Turgor, Ion K+</p>
+                    </div>
+
+                    <!-- Concept Item 3 -->
+                    <div onclick="showConceptDetail('hormon')" class="cursor-pointer bg-amber-50 hover:bg-amber-100 border-2 border-amber-200 p-5 rounded-2xl transition-all transform hover:-translate-y-1 shadow-sm">
+                        <div class="w-12 h-12 bg-amber-500 text-white rounded-xl flex items-center justify-center mx-auto mb-3 shadow">
+                            <i class="fa-solid fa-vial-circle-check text-xl"></i>
+                        </div>
+                        <h4 class="font-bold text-amber-900 text-base">3. Fitohormon</h4>
+                        <p class="text-xs text-amber-700 mt-1">Auksin, Sitokinin, Giberelin, ABA, Etilen</p>
+                    </div>
+
+                    <!-- Concept Item 4 -->
+                    <div onclick="showConceptDetail('gerak')" class="cursor-pointer bg-indigo-50 hover:bg-indigo-100 border-2 border-indigo-200 p-5 rounded-2xl transition-all transform hover:-translate-y-1 shadow-sm">
+                        <div class="w-12 h-12 bg-indigo-500 text-white rounded-xl flex items-center justify-center mx-auto mb-3 shadow">
+                            <i class="fa-solid fa-arrows-spin text-xl"></i>
+                        </div>
+                        <h4 class="font-bold text-indigo-900 text-base">4. Iritabilitas / Gerak</h4>
+                        <p class="text-xs text-indigo-700 mt-1">Tropisme, Nasti, Taktis, Fotoperiodisme</p>
+                    </div>
+                </div>
+
+                <!-- Interactive Detail Container -->
+                <div id="concept-detail-box" class="mt-6 bg-slate-50 border border-slate-200 p-5 rounded-2xl text-sm text-slate-700">
+                    <p class="italic text-slate-500"><i class="fa-solid fa-info-circle mr-1 text-brand-600"></i> Klik salah satu kotak topik di atas untuk menampilkan gambaran ringkasnya di sini.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================================================================= -->
+        <!-- TAB 2: MATERI PEMBELAJARAN INTERAKTIF -->
+        <!-- ================================================================= -->
+        <section id="tab-materi" class="tab-content space-y-8 hidden">
+            <div class="bg-white rounded-3xl shadow-xl border border-slate-200 overflow-hidden">
+                <!-- Sub-navigation tabs -->
+                <div class="border-b border-slate-200 bg-slate-50 px-4 pt-3 flex overflow-x-auto space-x-4">
+                    <button onclick="switchSubTab('materi-transport')" id="subtab-materi-transport" class="subtab-btn active px-4 py-3 text-sm font-semibold whitespace-nowrap">
+                        <i class="fa-solid fa-water mr-1"></i> Transportasi & Kapilaritas
+                    </button>
+                    <button onclick="switchSubTab('materi-stomata')" id="subtab-materi-stomata" class="subtab-btn px-4 py-3 text-sm font-semibold text-slate-500 hover:text-slate-800 whitespace-nowrap">
+                        <i class="fa-solid fa-eye mr-1"></i> Mekanisme Transpirasi & Stomata
+                    </button>
+                    <button onclick="switchSubTab('materi-hormon')" id="subtab-materi-hormon" class="subtab-btn px-4 py-3 text-sm font-semibold text-slate-500 hover:text-slate-800 whitespace-nowrap">
+                        <i class="fa-solid fa-capsules mr-1"></i> Fitohormon (Hormon Tumbuhan)
+                    </button>
+                    <button onclick="switchSubTab('materi-gerak')" id="subtab-materi-gerak" class="subtab-btn px-4 py-3 text-sm font-semibold text-slate-500 hover:text-slate-800 whitespace-nowrap">
+                        <i class="fa-solid fa-compass-drafting mr-1"></i> Gerak pada Tumbuhan
+                    </button>
+                </div>
+
+                <div class="p-6 md:p-10">
+                    <!-- SUBTOPIC 1: TRANSPORTASI -->
+                    <div id="materi-transport" class="subtab-content space-y-6">
+                        <div class="flex items-center gap-3 border-b border-slate-200 pb-4">
+                            <div class="w-10 h-10 bg-emerald-100 text-emerald-700 rounded-xl flex items-center justify-center font-bold text-lg">1</div>
+                            <div>
+                                <h3 class="text-2xl font-bold text-slate-900">Pengaturan Transportasi Air dan Nutrisi</h3>
+                                <p class="text-sm text-slate-500">Mekanisme penyerapan dan pengangkutan zat dari akar hingga puncak tajuk</p>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                            <div class="space-y-4 text-slate-700 text-sm leading-relaxed">
+                                <p>
+                                    Air dan mineral diserap dari tanah oleh rambut akar secara <strong class="text-slate-900">osmosis</strong> dan <strong class="text-slate-900">transpor aktif</strong>. Terdapat dua jalur pengangkutan ekstravaskuler sebelum mencapai berkas pembuluh:
+                                </p>
+                                <div class="space-y-2">
+                                    <div class="bg-emerald-50 border-l-4 border-emerald-500 p-3 rounded-r-xl">
+                                        <h5 class="font-bold text-emerald-900">1. Jalur Apoplas</h5>
+                                        <p class="text-xs text-emerald-800">Pergerakan air melalui selat-selat dinding sel dan ruang antar sel. Terhalang oleh <strong>Pita Kaspari</strong> pada endodermis.</p>
+                                    </div>
+                                    <div class="bg-teal-50 border-l-4 border-teal-500 p-3 rounded-r-xl">
+                                        <h5 class="font-bold text-teal-900">2. Jalur Simplas</h5>
+                                        <p class="text-xs text-teal-800">Pergerakan air menembus sitoplasma sel-sel melalui jembatan sitoplasma (<strong>plasmodesmata</strong>).</p>
+                                    </div>
+                                </div>
+                                <h4 class="font-bold text-slate-900 text-base pt-2">Faktor Pendorong Air Naik di Xilem:</h4>
+                                <ul class="list-disc list-inside space-y-1.5 text-slate-600">
+                                    <li><strong>Tekanan Akar:</strong> Akibat akumulasi ion mineral aktif yang memicu osmosis air masuk ke akar.</li>
+                                    <li><strong>Kapilaritas Batang:</strong> Akibat gaya <em>Kohesi</em> (antar molekul air) & <em>Adhesi</em> (air dengan dinding pembuluh kayu/xilem).</li>
+                                    <li><strong>Daya Isap Transpirasi:</strong> Penguapan air di daun menarik seluruh kolom air ke atas secara terus menerus.</li>
+                                </ul>
+                            </div>
+
+                            <!-- Interactive Visual Diagram: Xylem vs Phloem Transport -->
+                            <div class="bg-slate-900 rounded-3xl p-6 text-white shadow-2xl relative">
+                                <h4 class="font-bold text-center text-emerald-400 mb-4 text-sm uppercase tracking-wider">Visualisasi Jalur Transportasi Vaskuler</h4>
+                                
+                                <div class="grid grid-cols-2 gap-4 text-center text-xs">
+                                    <div class="bg-slate-800 p-4 rounded-2xl border border-slate-700">
+                                        <div class="w-8 h-8 bg-sky-500 text-white rounded-full flex items-center justify-center mx-auto mb-2 font-bold">X</div>
+                                        <h5 class="font-bold text-sky-300 text-sm">Pembuluh XILEM</h5>
+                                        <p class="text-slate-400 mt-1">Arah: <strong>Satu Arah (Ke Atas)</strong></p>
+                                        <p class="text-slate-400">Zat: Air & Garam Mineral</p>
+                                        <div class="mt-3 bg-slate-900 p-2 rounded text-[11px] text-sky-400 border border-sky-500/30">
+                                            Sel mati, berdinding tebal berligin.
+                                        </div>
+                                    </div>
+
+                                    <div class="bg-slate-800 p-4 rounded-2xl border border-slate-700">
+                                        <div class="w-8 h-8 bg-amber-500 text-white rounded-full flex items-center justify-center mx-auto mb-2 font-bold">F</div>
+                                        <h5 class="font-bold text-amber-300 text-sm">Pembuluh FLOEM</h5>
+                                        <p class="text-slate-400 mt-1">Arah: <strong>Dua Arah (Bolak-balik)</strong></p>
+                                        <p class="text-slate-400">Zat: Hasil Fotosintesis (Sukrosa)</p>
+                                        <div class="mt-3 bg-slate-900 p-2 rounded text-[11px] text-amber-400 border border-amber-500/30">
+                                            Sel hidup (Sel Tapisan & Pengiring).
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mt-4 p-3 bg-emerald-950/80 border border-emerald-500/30 rounded-xl text-xs text-emerald-200">
+                                    <i class="fa-solid fa-lightbulb text-amber-400 mr-1"></i> <strong>Teori Aliran Tekanan (Münch):</strong> Hasil fotosintesis diangkut dari jaringan sumber (<em>Source/Daun</em>) menuju tempat penampungan (<em>Sink/Akar, Buah, Bunga</em>) akibat perbedaan tekanan osmotik.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SUBTOPIC 2: TRANSPIRASI & STOMATA -->
+                    <div id="materi-stomata" class="subtab-content space-y-6 hidden">
+                        <div class="flex items-center gap-3 border-b border-slate-200 pb-4">
+                            <div class="w-10 h-10 bg-teal-100 text-teal-700 rounded-xl flex items-center justify-center font-bold text-lg">2</div>
+                            <div>
+                                <h3 class="text-2xl font-bold text-slate-900">Mekanisme Membuka dan Menutupnya Stomata</h3>
+                                <p class="text-sm text-slate-500">Pengaturan laju penguapan air dan pertukaran gas CO<sub>2</sub> / O<sub>2</sub></p>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div class="space-y-4 text-slate-700 text-sm leading-relaxed">
+                                <p>
+                                    Stomata dikelilingi oleh sepasang <strong class="text-slate-900">Sel Penjaga (Guard Cells)</strong>. Perubahan bentuk sel penjaga dikendalikan oleh perubahan <strong class="text-slate-900">Tekanan Turgor</strong> sel.
+                                </p>
+
+                                <div class="bg-emerald-50 border border-emerald-200 p-4 rounded-2xl space-y-2">
+                                    <h5 class="font-bold text-emerald-900 flex items-center gap-2">
+                                        <i class="fa-solid fa-sun text-amber-500"></i> Saat Stomata MEMBUKA (Siang Hari)
+                                    </h5>
+                                    <ol class="list-decimal list-inside text-xs text-slate-700 space-y-1">
+                                        <li>Cahaya merangsang transpor aktif ion <strong class="text-emerald-800 font-semibold">Kalium (K<sup>+</sup>)</strong> masuk ke dalam sel penjaga.</li>
+                                        <li>Konsentrasi zat terlarut naik &rarr; Sel penjaga menjadi <strong>hipertonis</strong>.</li>
+                                        <li>Air dari sel tetangga masuk secara <strong>osmosis</strong> ke sel penjaga.</li>
+                                        <li>Tekanan turgor meningkat, sel membengkak dan melengkung &rarr; Celah Stomata Terbuka!</li>
+                                    </ol>
+                                </div>
+
+                                <div class="bg-slate-100 border border-slate-300 p-4 rounded-2xl space-y-2">
+                                    <h5 class="font-bold text-slate-900 flex items-center gap-2">
+                                        <i class="fa-solid fa-moon text-slate-600"></i> Saat Stomata MENUTUP (Malam / Kekeringan)
+                                    </h5>
+                                    <ol class="list-decimal list-inside text-xs text-slate-700 space-y-1">
+                                        <li>Ion K<sup>+</sup> keluar dari sel penjaga (atau akibat rangsangan <strong>Hormon ABA</strong> saat stres air).</li>
+                                        <li>Sel penjaga menjadi <strong>hipotonis</strong>.</li>
+                                        <li>Air keluar dari sel penjaga menuju sel tetangga secara osmosis.</li>
+                                        <li>Tekanan turgor merosot, sel menjadi flasid (mengecil) &rarr; Celah Stomata Menutup.</li>
+                                    </ol>
+                                </div>
+                            </div>
+
+                            <!-- Interactive Stomata Visualizer Widget -->
+                            <div class="bg-gradient-to-br from-teal-900 to-slate-900 text-white rounded-3xl p-6 flex flex-col justify-between shadow-2xl">
+                                <div>
+                                    <h4 class="font-bold text-teal-300 text-center mb-2">Simulasi Cepat Tekanan Turgor Stomata</h4>
+                                    <p class="text-xs text-slate-400 text-center mb-6">Ubah status di bawah ini untuk melihat ilustrasi sel penjaga:</p>
+                                    
+                                    <!-- Dynamic Stomata SVG Art -->
+                                    <div class="w-48 h-48 mx-auto relative flex items-center justify-center">
+                                        <svg id="stomata-svg" viewBox="0 0 200 200" class="w-full h-full transition-all duration-500">
+                                            <!-- Guard Cell Left -->
+                                            <path id="cell-left" d="M 70 30 C 30 60, 30 140, 70 170 C 85 140, 85 60, 70 30 Z" fill="#22c55e" stroke="#15803d" stroke-width="4"/>
+                                            <!-- Guard Cell Right -->
+                                            <path id="cell-right" d="M 130 30 C 170 60, 170 140, 130 170 C 115 140, 115 60, 130 30 Z" fill="#22c55e" stroke="#15803d" stroke-width="4"/>
+                                            <!-- Pore / Pore Opening -->
+                                            <ellipse id="stomata-pore" cx="100" cy="100" rx="15" ry="50" fill="#0f172a" class="transition-all duration-500"/>
+                                        </svg>
+                                    </div>
+                                    <p id="stomata-status-text" class="text-center font-bold text-emerald-400 text-sm mt-4">Status: STOMATA MEMBUKA (Turgor Tinggi)</p>
+                                </div>
+
+                                <div class="flex gap-3 mt-6">
+                                    <button onclick="updateStomataState(true)" class="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2.5 rounded-xl text-xs transition-all">
+                                        <i class="fa-solid fa-sun mr-1"></i> Turgor Tinggi (Buka)
+                                    </button>
+                                    <button onclick="updateStomataState(false)" class="flex-1 bg-slate-700 hover:bg-slate-600 text-white font-bold py-2.5 rounded-xl text-xs transition-all">
+                                        <i class="fa-solid fa-droplet-slash mr-1"></i> Turgor Rendah (Tutup)
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SUBTOPIC 3: FITOHORMON -->
+                    <div id="materi-hormon" class="subtab-content space-y-6 hidden">
+                        <div class="flex items-center gap-3 border-b border-slate-200 pb-4">
+                            <div class="w-10 h-10 bg-amber-100 text-amber-700 rounded-xl flex items-center justify-center font-bold text-lg">3</div>
+                            <div>
+                                <h3 class="text-2xl font-bold text-slate-900">Zat Pengatur Tumbuh (Fitohormon)</h3>
+                                <p class="text-sm text-slate-500">Senyawa organik non-nutrisi yang mengendalikan pertumbuhan dan respon fisiologis</p>
+                            </div>
+                        </div>
+
+                        <p class="text-sm text-slate-600">Klik kartu di bawah ini untuk melihat detail fungsi masing-masing hormon penting tumbuhan:</p>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <!-- Card 1 -->
+                            <div class="glass-card p-5 rounded-2xl border border-slate-200 hover:shadow-xl transition-all border-t-4 border-t-amber-500">
+                                <div class="flex justify-between items-start mb-3">
+                                    <h4 class="font-extrabold text-slate-900 text-lg">1. Auksin (IAA)</h4>
+                                    <span class="bg-amber-100 text-amber-800 font-bold text-[10px] px-2 py-0.5 rounded-full">Dominansi Apikal</span>
+                                </div>
+                                <ul class="text-xs text-slate-600 space-y-1.5 list-disc list-inside">
+                                    <li>Mendorong pemanjangan sel di ujung batang (kuncup apikal).</li>
+                                    <li>Hancur/rusak bila terkena cahaya matahari langsung.</li>
+                                    <li>Memicu pembentukan akar adventif dan partenokarpi (buah tanpa biji).</li>
+                                </ul>
+                            </div>
+
+                            <!-- Card 2 -->
+                            <div class="glass-card p-5 rounded-2xl border border-slate-200 hover:shadow-xl transition-all border-t-4 border-t-emerald-500">
+                                <div class="flex justify-between items-start mb-3">
+                                    <h4 class="font-extrabold text-slate-900 text-lg">2. Sitokinin</h4>
+                                    <span class="bg-emerald-100 text-emerald-800 font-bold text-[10px] px-2 py-0.5 rounded-full">Pembelahan Sel</span>
+                                </div>
+                                <ul class="text-xs text-slate-600 space-y-1.5 list-disc list-inside">
+                                    <li>Merangsang sitokinesis (pembelahan sel).</li>
+                                    <li>Menghambat penuaan (senesens) pada organ tumbuhan.</li>
+                                    <li>Bekerja antagonis dengan Auksin memacu pertumbuhan tunas lateral.</li>
+                                </ul>
+                            </div>
+
+                            <!-- Card 3 -->
+                            <div class="glass-card p-5 rounded-2xl border border-slate-200 hover:shadow-xl transition-all border-t-4 border-t-sky-500">
+                                <div class="flex justify-between items-start mb-3">
+                                    <h4 class="font-extrabold text-slate-900 text-lg">3. Giberelin (GA)</h4>
+                                    <span class="bg-sky-100 text-sky-800 font-bold text-[10px] px-2 py-0.5 rounded-full">Perkecambahan</span>
+                                </div>
+                                <ul class="text-xs text-slate-600 space-y-1.5 list-disc list-inside">
+                                    <li>Mengakhiri masa dormansi biji (merangsang enzim amilase).</li>
+                                    <li>Membuat tumbuhan tumbuh raksasa / memanjangkan ruas batang.</li>
+                                    <li>Merangsang pembungaan berbarengan.</li>
+                                </ul>
+                            </div>
+
+                            <!-- Card 4 -->
+                            <div class="glass-card p-5 rounded-2xl border border-slate-200 hover:shadow-xl transition-all border-t-4 border-t-red-500">
+                                <div class="flex justify-between items-start mb-3">
+                                    <h4 class="font-extrabold text-slate-900 text-lg">4. Asam Absisat (ABA)</h4>
+                                    <span class="bg-red-100 text-red-800 font-bold text-[10px] px-2 py-0.5 rounded-full">Hormon Stres</span>
+                                </div>
+                                <ul class="text-xs text-slate-600 space-y-1.5 list-disc list-inside">
+                                    <li>Menutup stomata saat tumbuhan mengalami kekurangan air.</li>
+                                    <li>Mempertahankan dormansi biji di musim buruk.</li>
+                                    <li>Menghambat pertumbuhan (inhibitor umum).</li>
+                                </ul>
+                            </div>
+
+                            <!-- Card 5 -->
+                            <div class="glass-card p-5 rounded-2xl border border-slate-200 hover:shadow-xl transition-all border-t-4 border-t-purple-500">
+                                <div class="flex justify-between items-start mb-3">
+                                    <h4 class="font-extrabold text-slate-900 text-lg">5. Gas Etilen</h4>
+                                    <span class="bg-purple-100 text-purple-800 font-bold text-[10px] px-2 py-0.5 rounded-full">Pematangan Buah</span>
+                                </div>
+                                <ul class="text-xs text-slate-600 space-y-1.5 list-disc list-inside">
+                                    <li>Mempercepat pematangan buah (katalis pemecahan pati jadi gula).</li>
+                                    <li>Satu-satunya hormon tumbuhan berwujud gas.</li>
+                                    <li>Memicu pengguguran daun (absisi).</li>
+                                </ul>
+                            </div>
+
+                            <!-- Card 6 -->
+                            <div class="glass-card p-5 rounded-2xl border border-slate-200 hover:shadow-xl transition-all border-t-4 border-t-indigo-500">
+                                <div class="flex justify-between items-start mb-3">
+                                    <h4 class="font-extrabold text-slate-900 text-lg">6. Kalin & Traumalin</h4>
+                                    <span class="bg-indigo-100 text-indigo-800 font-bold text-[10px] px-2 py-0.5 rounded-full">Organogenesis & Luka</span>
+                                </div>
+                                <ul class="text-xs text-slate-600 space-y-1.5 list-disc list-inside">
+                                    <li><strong>Kalin:</strong> Memicu pembentukan organ (Rhizokalin=Akar, Kaulokalin=Batang, Filokalin=Daun, Antokalin=Bunga).</li>
+                                    <li><strong>Asam Traumalin:</strong> Memperbaiki / menutup bagian luka (Restitusi).</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SUBTOPIC 4: GERAK TUMBUHAN -->
+                    <div id="materi-gerak" class="subtab-content space-y-6 hidden">
+                        <div class="flex items-center gap-3 border-b border-slate-200 pb-4">
+                            <div class="w-10 h-10 bg-indigo-100 text-indigo-700 rounded-xl flex items-center justify-center font-bold text-lg">4</div>
+                            <div>
+                                <h3 class="text-2xl font-bold text-slate-900">Sistem Gerak dan Iritabilitas Tumbuhan</h3>
+                                <p class="text-sm text-slate-500">Respon terhadap rangsangan lingkungan (Cahaya, Sentuhan, Gravitasi, Air)</p>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div class="bg-slate-50 border border-slate-200 p-5 rounded-2xl space-y-3">
+                                <div class="inline-block bg-indigo-600 text-white text-xs font-bold px-3 py-1 rounded-full">1. TROPISME</div>
+                                <p class="text-xs font-semibold text-slate-800">Gerak bagian tumbuhan yang arahnya dipengaruhi oleh arah datangnya rangsang.</p>
+                                <ul class="text-xs text-slate-600 space-y-1 list-disc list-inside">
+                                    <li><strong>Fototropisme:</strong> Tunas membengkok ke arah datangnya cahaya matahari (Auksin berpindah ke sisi gelap).</li>
+                                    <li><strong>Geotropisme/Gravitropisme:</strong> Akar tumbuh ke bawah bumi (positif).</li>
+                                    <li><strong>Tigmotropisme:</strong> Sulur tanaman melilit tiang penyangga.</li>
+                                </ul>
+                            </div>
+
+                            <div class="bg-slate-50 border border-slate-200 p-5 rounded-2xl space-y-3">
+                                <div class="inline-block bg-purple-600 text-white text-xs font-bold px-3 py-1 rounded-full">2. NASTI</div>
+                                <p class="text-xs font-semibold text-slate-800">Gerak bagian tumbuhan yang arahnya TIDAK dipengaruhi oleh arah datangnya rangsang.</p>
+                                <ul class="text-xs text-slate-600 space-y-1 list-disc list-inside">
+                                    <li><strong>Seismonasti/Tigmonasti:</strong> Putri malu (<em>Mimosa pudica</em>) mengatup saat disentuh.</li>
+                                    <li><strong>Niktinasti:</strong> Polong-polongan "tidur" mengatupkan daun di malam hari.</li>
+                                    <li><strong>Fotonasti:</strong> Bunga pukul empat mekar sore hari.</li>
+                                </ul>
+                            </div>
+
+                            <div class="bg-slate-50 border border-slate-200 p-5 rounded-2xl space-y-3">
+                                <div class="inline-block bg-pink-600 text-white text-xs font-bold px-3 py-1 rounded-full">3. TAKTIS</div>
+                                <p class="text-xs font-semibold text-slate-800">Gerak pindah tempat SELURUH tubuh tumbuhan/sel akibat rangsangan.</p>
+                                <ul class="text-xs text-slate-600 space-y-1 list-disc list-inside">
+                                    <li><strong>Kemotaktis:</strong> Pergerakan sel sperma tumbuhan lumut/paku menuju sel telur karena zat gula/asam.</li>
+                                    <li><strong>Fototaktis:</strong> Pergerakan Euglina / Kloroplas menuju sisi terang.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================================================================= -->
+        <!-- TAB 3: LABORATORIUM VIRTUAL (POTOMETER EXPERIMENT) -->
+        <!-- ================================================================= -->
+        <section id="tab-vlab" class="tab-content space-y-8 hidden">
+            <div class="bg-slate-900 text-white rounded-3xl p-6 md:p-8 shadow-2xl border border-slate-800">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-slate-800 pb-6 gap-4">
+                    <div>
+                        <span class="bg-emerald-500/20 text-emerald-400 font-bold text-xs px-3 py-1 rounded-full border border-emerald-500/30">Laboratorium Virtual Interaktif</span>
+                        <h2 class="text-2xl md:text-3xl font-black mt-2 text-white">Simulasi Potometer: Eksperimen Laju Transpirasi</h2>
+                        <p class="text-slate-400 text-sm">Amati bagaimana Suhu, Intensitas Cahaya, Kelembapan, dan Kecepatan Angin mempengaruhi laju penyerapan air tumbuhan!</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="resetLab()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold px-4 py-2 rounded-xl text-xs border border-slate-700 transition-all flex items-center gap-1">
+                            <i class="fa-solid fa-rotate-right"></i> Reset Lab
+                        </button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mt-6">
+                    <!-- CONTROLS PANEL (4 cols) -->
+                    <div class="lg:col-span-4 bg-slate-800/80 p-5 rounded-2xl border border-slate-700/80 space-y-5">
+                        <h4 class="font-bold text-emerald-400 text-sm uppercase tracking-wider flex items-center gap-2">
+                            <i class="fa-solid fa-sliders"></i> Variable Kontrol Lingkungan
+                        </h4>
+
+                        <!-- Control 1: Cahaya -->
+                        <div class="space-y-1">
+                            <div class="flex justify-between text-xs font-semibold">
+                                <label><i class="fa-solid fa-sun text-amber-400 mr-1"></i> Intensitas Cahaya</label>
+                                <span id="val-light" class="text-emerald-400">50%</span>
+                            </div>
+                            <input type="range" id="input-light" min="0" max="100" value="50" oninput="updateLabSimulation()" class="w-full accent-emerald-500 bg-slate-700 rounded-lg cursor-pointer">
+                        </div>
+
+                        <!-- Control 2: Suhu -->
+                        <div class="space-y-1">
+                            <div class="flex justify-between text-xs font-semibold">
+                                <label><i class="fa-solid fa-temperature-high text-red-400 mr-1"></i> Suhu Lingkungan (°C)</label>
+                                <span id="val-temp" class="text-emerald-400">28 °C</span>
+                            </div>
+                            <input type="range" id="input-temp" min="15" max="45" value="28" oninput="updateLabSimulation()" class="w-full accent-emerald-500 bg-slate-700 rounded-lg cursor-pointer">
+                        </div>
+
+                        <!-- Control 3: Angin -->
+                        <div class="space-y-1">
+                            <div class="flex justify-between text-xs font-semibold">
+                                <label><i class="fa-solid fa-wind text-sky-400 mr-1"></i> Kecepatan Angin</label>
+                                <span id="val-wind" class="text-emerald-400">Sedang</span>
+                            </div>
+                            <input type="range" id="input-wind" min="0" max="100" value="40" oninput="updateLabSimulation()" class="w-full accent-emerald-500 bg-slate-700 rounded-lg cursor-pointer">
+                        </div>
+
+                        <!-- Control 4: Kelembapan -->
+                        <div class="space-y-1">
+                            <div class="flex justify-between text-xs font-semibold">
+                                <label><i class="fa-solid fa-droplet text-blue-400 mr-1"></i> Kelembapan Udara (RH %)</label>
+                                <span id="val-humidity" class="text-emerald-400">60%</span>
+                            </div>
+                            <input type="range" id="input-humidity" min="20" max="95" value="60" oninput="updateLabSimulation()" class="w-full accent-emerald-500 bg-slate-700 rounded-lg cursor-pointer">
+                        </div>
+
+                        <div class="pt-4 border-t border-slate-700 flex flex-col gap-2">
+                            <button onclick="startLabTimer()" id="btn-start-lab" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 rounded-xl text-sm transition-all shadow-lg flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-play"></i> Jalankan Simulasi Potometer (60 dtk)
+                            </button>
+                            <button onclick="recordDataPoint()" class="w-full bg-slate-700 hover:bg-slate-600 text-slate-200 font-semibold py-2 rounded-xl text-xs transition-all flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-table-list text-amber-400"></i> Catat Hasil ke Tabel LKPD
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- INTERACTIVE ANIMATION & GRAPH CANVAS (8 cols) -->
+                    <div class="lg:col-span-8 flex flex-col justify-between space-y-6">
+                        <!-- Potometer Graphic Simulation Canvas -->
+                        <div class="bg-slate-950 rounded-2xl p-4 border border-slate-800 relative overflow-hidden flex flex-col items-center justify-center min-h-[260px]">
+                            
+                            <!-- Sun / Bulb Graphic Overlay based on light -->
+                            <div id="visual-sun" class="absolute top-4 right-6 text-amber-400 opacity-60 transition-all">
+                                <i class="fa-solid fa-sun text-4xl"></i>
+                            </div>
+
+                            <!-- Animated Wind Graphic -->
+                            <div id="visual-wind" class="absolute top-12 left-6 text-sky-400/40 space-y-1">
+                                <i class="fa-solid fa-wind text-2xl animate-pulse"></i>
+                            </div>
+
+                            <!-- Plant Stem Potometer Visual -->
+                            <div class="relative w-full max-w-md h-40 flex items-center justify-center">
+                                <svg viewBox="0 0 400 160" class="w-full h-full">
+                                    <!-- Plant Shoot -->
+                                    <path d="M 120 20 L 120 80" stroke="#16a34a" stroke-width="10" stroke-linecap="round"/>
+                                    <!-- Leaves -->
+                                    <path d="M 120 30 Q 80 10 70 30 Q 90 50 120 40 Z" fill="#22c55e"/>
+                                    <!-- Leaf 2 -->
+                                    <path d="M 120 45 Q 160 25 170 45 Q 150 65 120 55 Z" fill="#15803d"/>
+                                    <!-- Leaf 3 -->
+                                    <path d="M 120 20 Q 110 -10 130 -10 Q 140 10 120 20 Z" fill="#4ade80"/>
+
+                                    <!-- Plant Cut Stem in Rubber Stopper -->
+                                    <rect x="105" y="70" width="30" height="25" fill="#475569" rx="4"/>
+                                    
+                                    <!-- Glass Water Tube (Potometer Tube) -->
+                                    <path d="M 120 90 L 120 130 L 350 130" fill="none" stroke="#94a3b8" stroke-width="12" stroke-linecap="round"/>
+                                    <!-- Water inside tube -->
+                                    <path d="M 120 90 L 120 130 L 350 130" fill="none" stroke="#38bdf8" stroke-width="6" stroke-linecap="round" opacity="0.8"/>
+
+                                    <!-- Air Bubble Indicator -->
+                                    <circle id="air-bubble" cx="300" cy="130" r="4" fill="#ef4444" stroke="#ffffff" stroke-width="1.5"/>
+
+                                    <!-- Tube Ruler Markings -->
+                                    <line x1="200" y1="120" x2="200" y2="140" stroke="#cbd5e1" stroke-width="1"/>
+                                    <line x1="250" y1="120" x2="250" y2="140" stroke="#cbd5e1" stroke-width="1"/>
+                                    <line x1="300" y1="120" x2="300" y2="140" stroke="#cbd5e1" stroke-width="1"/>
+                                    <text x="200" y="152" fill="#94a3b8" font-size="10">2 ml</text>
+                                    <text x="250" y="152" fill="#94a3b8" font-size="10">1 ml</text>
+                                    <text x="300" y="152" fill="#94a3b8" font-size="10">0 ml</text>
+                                </svg>
+                            </div>
+
+                            <!-- Realtime Telemetry Bar -->
+                            <div class="grid grid-cols-3 gap-4 w-full mt-2 bg-slate-900/90 p-3 rounded-xl border border-slate-800 text-center">
+                                <div>
+                                    <p class="text-[10px] text-slate-400">Laju Transpirasi Estimasi</p>
+                                    <p id="telemetry-rate" class="text-lg font-black text-emerald-400">1.45 <span class="text-xs text-slate-400">mL/menit</span></p>
+                                </div>
+                                <div>
+                                    <p class="text-[10px] text-slate-400">Volume Air Terisap</p>
+                                    <p id="telemetry-volume" class="text-lg font-black text-sky-400">0.00 <span class="text-xs text-slate-400">mL</span></p>
+                                </div>
+                                <div>
+                                    <p class="text-[10px] text-slate-400">Status Pembukaan Stomata</p>
+                                    <p id="telemetry-stomata-state" class="text-xs font-bold text-amber-400 mt-1">Terbuka Moderat (65%)</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Real-time Chart -->
+                        <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 h-48">
+                            <canvas id="transpirationChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================================================================= -->
+        <!-- TAB 4: LKPD DIGITAL (LEMBAR KERJA PESERTA DIDIK) -->
+        <!-- ================================================================= -->
+        <section id="tab-lkpd" class="tab-content space-y-8 hidden">
+            <div class="bg-white rounded-3xl p-6 md:p-10 shadow-xl border border-slate-200">
+                <div class="border-b border-slate-200 pb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                    <div>
+                        <span class="bg-amber-100 text-amber-800 font-bold text-xs px-3 py-1 rounded-full border border-amber-200">LKPD Digital Interaktif</span>
+                        <h2 class="text-2xl md:text-3xl font-black text-slate-900 mt-2">Lembar Kerja Peserta Didik (LKPD)</h2>
+                        <p class="text-sm text-slate-500">Materi: Laju Transpirasi & Respon Pengaturan Tumbuhan</p>
+                    </div>
+                    <button onclick="printLKPD()" class="bg-slate-900 hover:bg-slate-800 text-white font-bold px-5 py-2.5 rounded-xl text-xs transition-all shadow flex items-center gap-2">
+                        <i class="fa-solid fa-print"></i> Cetak / Simpan Hasil LKPD (PDF)
+                    </button>
+                </div>
+
+                <!-- Form Identitas Siswa / Kelompok -->
+                <form id="lkpd-form" onsubmit="event.preventDefault();" class="space-y-8 mt-6">
+                    <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                        <div>
+                            <label class="block font-bold text-slate-700 mb-1">Nama Siswa / Ketua Kelompok</label>
+                            <input type="text" id="lkpd-nama" placeholder="Tuliskan nama lengkap..." class="w-full bg-white border border-slate-300 rounded-xl p-2.5 focus:ring-2 focus:ring-brand-500 outline-none">
+                        </div>
+                        <div>
+                            <label class="block font-bold text-slate-700 mb-1">Kelas / No. Absen</label>
+                            <input type="text" id="lkpd-kelas" placeholder="Contoh: XI-MIPA 2 / 14" class="w-full bg-white border border-slate-300 rounded-xl p-2.5 focus:ring-2 focus:ring-brand-500 outline-none">
+                        </div>
+                        <div>
+                            <label class="block font-bold text-slate-700 mb-1">Kelompok Belajar</label>
+                            <input type="text" id="lkpd-kelompok" placeholder="Contoh: Kelompok 3 (Orion)" class="w-full bg-white border border-slate-300 rounded-xl p-2.5 focus:ring-2 focus:ring-brand-500 outline-none">
+                        </div>
+                    </div>
+
+                    <!-- KEGIATAN 1: TABEL DATA VIRTUAL LAB -->
+                    <div class="space-y-4">
+                        <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+                            <i class="fa-solid fa-table text-brand-600"></i> Kegiatan 1: Pengamatan Data Eksperimen Lab Virtual
+                        </h3>
+                        <p class="text-xs text-slate-500">Tekan tombol "Catat Hasil ke Tabel LKPD" di menu Lab Virtual untuk memasukkan data uji coba secara otomatis ke dalam tabel di bawah ini.</p>
+
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-xs text-left text-slate-700 border border-slate-200 rounded-xl overflow-hidden">
+                                <thead class="bg-slate-100 text-slate-800 uppercase font-bold border-b border-slate-200">
+                                    <tr>
+                                        <th class="p-3">No</th>
+                                        <th class="p-3">Cahaya (%)</th>
+                                        <th class="p-3">Suhu (°C)</th>
+                                        <th class="p-3">Angin</th>
+                                        <th class="p-3">Kelembapan (%)</th>
+                                        <th class="p-3">Laju Transpirasi (mL/min)</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="lkpd-data-tbody" class="divide-y divide-slate-200 bg-white">
+                                    <tr id="empty-row">
+                                        <td colspan="6" class="p-4 text-center text-slate-400 italic">Belum ada data dicatat. Silakan lakukan pengujian pada menu Lab Virtual!</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- KEGIATAN 2: ANALISIS & PERTANYAAN HOTS -->
+                    <div class="space-y-6">
+                        <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+                            <i class="fa-solid fa-brain text-amber-600"></i> Kegiatan 2: Pertanyaan Analisis & Pemecahan Masalah
+                        </h3>
+
+                        <!-- Question 1 -->
+                        <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-2">
+                            <label class="block font-bold text-slate-800 text-sm">
+                                1. Berdasarkan data simulasi potometer yang telah kamu catat, bagaimana pengaruh peningkatan intensitas cahaya dan suhu terhadap laju transpirasi? Jelaskan alasannya dari sudut pandang mekanisme pembukaan stomata!
+                            </label>
+                            <textarea id="lkpd-q1" rows="3" placeholder="Tuliskan analisis jawabanmu di sini..." class="w-full bg-white border border-slate-300 rounded-xl p-3 text-xs focus:ring-2 focus:ring-brand-500 outline-none"></textarea>
+                        </div>
+
+                        <!-- Question 2 -->
+                        <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-2">
+                            <label class="block font-bold text-slate-800 text-sm">
+                                2. [Studi Kasus Kekeringan] Ketika suatu tanaman mengalami kekeringan ekstrem di musim kemarau, hormon tumbuhan apakah yang diproduksi secara masif oleh akar/daun? Bagaimana cara kerja hormon tersebut untuk meminimalkan kehilangan air?
+                            </label>
+                            <textarea id="lkpd-q2" rows="3" placeholder="Tuliskan analisis jawabanmu di sini..." class="w-full bg-white border border-slate-300 rounded-xl p-3 text-xs focus:ring-2 focus:ring-brand-500 outline-none"></textarea>
+                        </div>
+
+                        <!-- Question 3 -->
+                        <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-2">
+                            <label class="block font-bold text-slate-800 text-sm">
+                                3. Seorang petani meletakkan beberapa buah pisang mentah di dalam kardus tertutup bersama dengan satu buah apel yang sudah sangat matang. Setelah 2 hari, pisang mentah tersebut matang secara serentak. Jelaskan fenomena biologi ini berdasarkan konsep fitohormon!
+                            </label>
+                            <textarea id="lkpd-q3" rows="3" placeholder="Tuliskan analisis jawabanmu di sini..." class="w-full bg-white border border-slate-300 rounded-xl p-3 text-xs focus:ring-2 focus:ring-brand-500 outline-none"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Submit / Self Check -->
+                    <div class="pt-4 flex justify-end">
+                        <button type="button" onclick="checkLKPDCompletion()" class="bg-brand-600 hover:bg-brand-500 text-white font-bold px-8 py-3 rounded-xl shadow-lg transition-all flex items-center gap-2">
+                            <i class="fa-solid fa-circle-check"></i> Verifikasi dan Simpan Lembar Kerja
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- ================================================================= -->
+        <!-- TAB 5: QUIZ INTERAKTIF & EVALUASI -->
+        <!-- ================================================================= -->
+        <section id="tab-quiz" class="tab-content space-y-8 hidden">
+            <div class="bg-white rounded-3xl p-6 md:p-10 shadow-xl border border-slate-200 max-w-4xl mx-auto">
+                
+                <!-- Quiz Header -->
+                <div class="flex justify-between items-center border-b border-slate-200 pb-6">
+                    <div>
+                        <span class="bg-indigo-100 text-indigo-800 font-bold text-xs px-3 py-1 rounded-full border border-indigo-200">Evaluasi Pembelajaran</span>
+                        <h2 class="text-2xl font-black text-slate-900 mt-2">Quiz Biologi: Proses Pengaturan Tumbuhan</h2>
+                        <p class="text-xs text-slate-500">Uji pemahamanmu mengenai transportasi, stomata, fitohormon, dan gerak tumbuhan.</p>
+                    </div>
+                    <div id="quiz-score-badge" class="hidden bg-emerald-100 text-emerald-800 px-4 py-2 rounded-2xl text-center border border-emerald-200">
+                        <p class="text-[10px] uppercase font-bold">Skor Kamu</p>
+                        <p id="quiz-score-num" class="text-xl font-black">0 / 100</p>
+                    </div>
+                </div>
+
+                <!-- Quiz Progress Bar -->
+                <div id="quiz-progress-container" class="mt-6 space-y-2">
+                    <div class="flex justify-between text-xs font-bold text-slate-600">
+                        <span id="quiz-progress-text">Soal 1 dari 5</span>
+                        <span id="quiz-timer-text" class="text-amber-600"><i class="fa-solid fa-clock mr-1"></i> Mode Latihan</span>
+                    </div>
+                    <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
+                        <div id="quiz-progress-bar" class="bg-brand-500 h-full w-1/5 transition-all duration-300"></div>
+                    </div>
+                </div>
+
+                <!-- Quiz Container -->
+                <div id="quiz-box" class="mt-8 space-y-6">
+                    <!-- Question Text -->
+                    <h3 id="quiz-question-title" class="text-lg font-bold text-slate-900 leading-snug">
+                        <!-- Dynamic Question -->
+                    </h3>
+
+                    <!-- Question Options -->
+                    <div id="quiz-options-container" class="space-y-3">
+                        <!-- Dynamic Options -->
+                    </div>
+
+                    <!-- Explanation Box -->
+                    <div id="quiz-explanation-box" class="hidden p-4 rounded-2xl bg-sky-50 border border-sky-200 text-xs text-sky-900 space-y-1">
+                        <p class="font-bold text-sky-950 flex items-center gap-1">
+                            <i class="fa-solid fa-circle-info text-sky-600"></i> Pembahasan:
+                        </p>
+                        <p id="quiz-explanation-text"></p>
+                    </div>
+
+                    <!-- Quiz Navigation Buttons -->
+                    <div class="flex justify-between items-center pt-4 border-t border-slate-200">
+                        <button id="btn-prev-question" onclick="navigateQuiz(-1)" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold px-5 py-2.5 rounded-xl text-xs transition-all disabled:opacity-40">
+                            <i class="fa-solid fa-arrow-left mr-1"></i> Sebelumnya
+                        </button>
+                        <button id="btn-next-question" onclick="navigateQuiz(1)" class="bg-brand-600 hover:bg-brand-500 text-white font-bold px-6 py-2.5 rounded-xl text-xs shadow-lg transition-all">
+                            Berikutnya <i class="fa-solid fa-arrow-right ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Quiz Summary / Completion Screen -->
+                <div id="quiz-result-screen" class="hidden text-center py-10 space-y-6">
+                    <div class="w-24 h-24 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto text-4xl shadow-lg border border-emerald-200">
+                        <i class="fa-solid fa-trophy"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-black text-slate-900">Selamat! Quiz Selesai</h3>
+                        <p class="text-sm text-slate-500 mt-1">Berikut adalah hasil pencapaian evaluasimu:</p>
+                    </div>
+
+                    <div class="max-w-xs mx-auto bg-slate-50 border border-slate-200 p-6 rounded-3xl space-y-2">
+                        <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Nilai Akhir</p>
+                        <p id="final-score-text" class="text-5xl font-black text-brand-600">100</p>
+                        <p id="final-eval-message" class="text-xs font-semibold text-slate-600 pt-2">Sangat Baik! Kamu menguasai bab ini dengan sempurna.</p>
+                    </div>
+
+                    <div class="flex justify-center gap-4">
+                        <button onclick="restartQuiz()" class="bg-slate-900 hover:bg-slate-800 text-white font-bold px-6 py-3 rounded-xl text-xs transition-all shadow flex items-center gap-2">
+                            <i class="fa-solid fa-rotate-right"></i> Coba Lagi Quiz
+                        </button>
+                        <button onclick="switchTab('lkpd')" class="bg-brand-600 hover:bg-brand-500 text-white font-bold px-6 py-3 rounded-xl text-xs transition-all shadow flex items-center gap-2">
+                            <i class="fa-solid fa-file-pen"></i> Lanjut ke LKPD
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-900 text-slate-400 py-10 border-t border-slate-800 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6 text-xs">
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 bg-brand-600 text-white rounded-xl flex items-center justify-center font-bold">
+                    <i class="fa-solid fa-seedling"></i>
+                </div>
+                <div>
+                    <p class="font-bold text-white text-sm">LBB Kelas Pintar Orion</p>
+                    <p class="text-slate-500">Pengembang Media Pembelajaran Biologi Interaktif SMA</p>
+                </div>
+            </div>
+
+            <div class="text-center md:text-right text-slate-400">
+                <p>© 2026 Tim Penyusun LBB Kelas Pintar Orion. Hak Cipta Dilindungi.</p>
+                <p class="mt-0.5 text-slate-400">Mata Pelajaran Biologi SMA Kelas XI - Kurikulum Merdeka</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT INTERACTIVITY ENGINE -->
+    <script>
+        // GLOBAL STATE & DATA
+        let activeTab = 'pendahuluan';
+        let recordedLabData = [];
+        let transpirationChartInstance = null;
+        let isSimulating = false;
+        let labTimer = null;
+        let currentBubblePos = 300; // SVG coordinate
+        let accumulatedVolume = 0.0;
+
+        // QUIZ DATA (5 High Quality HOTS Questions for Biology Class XI)
+        const quizQuestions = [
+            {
+                question: "1. Pada siang hari yang cerah, sel penjaga pada stomata akan memompa ion Kalium (K<sup>+</sup>) ke dalam selnya secara aktif. Akibat dari peristiwa tersebut adalah...",
+                options: [
+                    "A. Potensial air sel penjaga naik, air keluar secara osmosis, stomata menutup.",
+                    "B. Sel penjaga menjadi hipertonis, air masuk secara osmosis, tekanan turgor naik, stomata membuka.",
+                    "C. Tekanan turgor sel penjaga turun mendadak, sel menjadi flasid, stomata membuka.",
+                    "D. Asam absisat (ABA) disintesis secara masif untuk menahan penguapan.",
+                    "E. Konsentrasi CO<sub>2</sub> di ruang antar sel naik pesat sehingga stomata terdesak menutup."
+                ],
+                correct: 1,
+                explanation: "Saat ion K<sup>+</sup> dipompa masuk, sel penjaga menjadi hipertonis. Hal ini memicu osmosis air dari sel tetangga masuk ke dalam sel penjaga. Peningkatan tekanan turgor membuat sel membengkak dan melengkung, membuka celah stomata."
+            },
+            {
+                question: "2. Pohon Redwood di California dapat menyalurkan air hingga ketinggian lebih dari 90 meter dari tanah tanpa pompa mekanis. Kombinasi faktor utama yang paling berperan mendorong air naik setinggi itu di dalam xilem adalah...",
+                options: [
+                    "A. Tekanan akar saja yang sangat kuat.",
+                    "B. Transpor aktif pada pembuluh floem.",
+                    "C. Kapilaritas batang (kohesi-adhesi) dan daya isap transpirasi di daun.",
+                    "D. Tekanan turgor pada epidermis akar.",
+                    "E. Pembelahan sel-sel kambium pembuluh secara kontinu."
+                ],
+                correct: 2,
+                explanation: "Daya isap transpirasi (tarikan akibat penguapan air di daun) yang didukung gaya kohesi (antar molekul air) dan adhesi (air dengan dinding xilem) menciptakan kolom air yang tidak terputus hingga puncak pohon tinggi."
+            },
+            {
+                question: "3. Tanaman kecambah yang diletakkan di dalam ruangan gelap akan tumbuh sangat cepat, berbatang tinggi namun pucat dan lemah. Fenomena ini disebut etiolasi dan terjadi akibat...",
+                options: [
+                    "A. Hormon Sitokinin bekerja tanpa hambatan cahaya.",
+                    "B. Hormon Auksin tidak terurai oleh cahaya sehingga terus memicu pemanjangan sel.",
+                    "C. Gas etilen terakumulasi memicu pembelahan sel lateral.",
+                    "D. Asam Absisat merangsang pembukaan stomata secara konstan.",
+                    "E. Hormon Kalin mempercepat pembentukan daun-daun baru."
+                ],
+                correct: 1,
+                explanation: "Hormon Auksin bersifat peka/rusak oleh cahaya matahari. Di tempat gelap, auksin bekerja maksimal tanpa terurai, memicu pemanjangan sel yang sangat cepat (etiolasi)."
+            },
+            {
+                question: "4. Daun tanaman Putri Malu (Mimosa pudica) mengatup dengan sangat cepat beberapa detik setelah diberi sentuhan. Jenis gerak dan mekanisme fisio-kimia yang mendasarinya adalah...",
+                options: [
+                    "A. Tigmotropisme; akibat pemindahan hormon auksin ke sisi lawan.",
+                    "B. Seismonasti; akibat perubahan tekanan turgor mendadak pada sel-sel pulvinus.",
+                    "C. Fotonasti; akibat penurunan intensitas cahaya matahari secara tiba-tiba.",
+                    "D. Niktinasti; akibat akumulasi ion K+ di sel penjaga.",
+                    "E. Fototaktis; akibat perpindahan kloroplas menuju bagian bawah daun."
+                ],
+                correct: 1,
+                explanation: "Gerak mengatupnya putri malu adalah Tigmonasti / Seismonasti. Rangsangan sentuhan memicu aliran keluar air dan ion dari sel-sel pulvinus (persendian daun), menurunkan tekanan turgor secara drastis dalam sekejap."
+            },
+            {
+                question: "5. Manakah pasangan hormon tumbuhan dan fungsinya yang paling tepat di bawah ini?",
+                options: [
+                    "A. Giberelin - Mempertahankan dormansi biji.",
+                    "B. Asam Absisat - Mempercepat pematangan buah.",
+                    "C. Sitokinin - Merangsang pembelahan sel (sitokinesis) & menunda penuaan.",
+                    "D. Gas Etilen - Memicu pembentukan akar adventif pada stek.",
+                    "E. Traumalin - Menghambat pertumbuhan kuncup apikal."
+                ],
+                correct: 2,
+                explanation: "Sitokinin berfungsi memicu pembelahan sel (sitokinesis), merangsang pertumbuhan tunas samping, dan menunda penuaan organ daun."
+            }
+        ];
+
+        let currentQuizIndex = 0;
+        let userQuizAnswers = new Array(quizQuestions.length).fill(null);
+
+        // NAVIGATION SWITCHER
+        function switchTab(tabId) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            // Remove active style from all nav buttons
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+
+            // Show selected tab content
+            const targetContent = document.getElementById('tab-' + tabId);
+            if(targetContent) targetContent.classList.remove('hidden');
+
+            // Highlight nav button
+            const targetNav = document.getElementById('nav-' + tabId);
+            if(targetNav) targetNav.classList.add('active');
+
+            activeTab = tabId;
+
+            // Render chart if switching to vlab
+            if(tabId === 'vlab' && !transpirationChartInstance) {
+                initTranspirationChart();
+            }
+        }
+
+        function switchSubTab(subTabId) {
+            document.querySelectorAll('.subtab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.subtab-btn').forEach(el => el.classList.remove('active'));
+
+            document.getElementById(subTabId).classList.remove('hidden');
+            document.getElementById('subtab-' + subTabId).classList.add('active');
+        }
+
+        function showConceptDetail(type) {
+            const box = document.getElementById('concept-detail-box');
+            const details = {
+                'transport': `<strong>Transportasi Air & Nutrisi:</strong> Air masuk melalui rambut akar secara osmosis &rarr; melintasi korteks (jalur apoplas & simplas) &rarr; menembus Pita Kaspari endodermis &rarr; pembuluh Xilem. Air naik karena kombinasi tekanan akar, kapilaritas xilem, dan daya isap transpirasi daun.`,
+                'transpirasi': `<strong>Transpirasi & Mekanisme Stomata:</strong> Transpirasi adalah penguapan air dari permukaan tumbuhan (terutama stomata). Pembukaan stomata diatur oleh kenaikan tekanan turgor sel penjaga saat ion K<sup>+</sup> masuk pada siang hari.`,
+                'hormon': `<strong>Fitohormon:</strong> Regulator kimia tumbuhan yang meliputi Auksin (pemanjangan), Sitokinin (pembelahan sel), Giberelin (perkecambahan), ABA (penutupan stomata saat stres), Gas Etilen (pematangan buah), Traumalin (penyembuhan luka), dan Kalin (organogenesis).`,
+                'gerak': `<strong>Sistem Gerak:</strong> Respon tumbuhan terhadap rangsangan. Terdiri dari Tropisme (arah gerak tergantung arah rangsang, contoh: Fototropisme), Nasti (arah tidak tergantung arah rangsang, contoh: Seismonasti Putri Malu), dan Taktis (gerak berpindah tempat).`
+            };
+            box.innerHTML = details[type] || '';
+        }
+
+        function updateStomataState(isOpen) {
+            const pore = document.getElementById('stomata-pore');
+            const cellLeft = document.getElementById('cell-left');
+            const cellRight = document.getElementById('cell-right');
+            const statusText = document.getElementById('stomata-status-text');
+
+            if (isOpen) {
+                pore.setAttribute('rx', '18');
+                pore.setAttribute('ry', '50');
+                cellLeft.setAttribute('d', 'M 70 30 C 30 60, 30 140, 70 170 C 85 140, 85 60, 70 30 Z');
+                cellRight.setAttribute('d', 'M 130 30 C 170 60, 170 140, 130 170 C 115 140, 115 60, 130 30 Z');
+                statusText.innerText = 'Status: STOMATA MEMBUKA (Turgor Tinggi / Ion K+ Masuk)';
+                statusText.className = 'text-center font-bold text-emerald-400 text-sm mt-4';
+            } else {
+                pore.setAttribute('rx', '1');
+                pore.setAttribute('ry', '50');
+                cellLeft.setAttribute('d', 'M 95 30 C 70 60, 70 140, 95 170 C 98 140, 98 60, 95 30 Z');
+                cellRight.setAttribute('d', 'M 105 30 C 130 60, 130 140, 105 170 C 102 140, 102 60, 105 30 Z');
+                statusText.innerText = 'Status: STOMATA MENUTUP (Turgor Rendah / Stres ABA)';
+                statusText.className = 'text-center font-bold text-slate-400 text-sm mt-4';
+            }
+        }
+
+        // LAB VIRTUAL SIMULATION ENGINE
+        function calculateTranspirationRate() {
+            const light = parseFloat(document.getElementById('input-light').value);
+            const temp = parseFloat(document.getElementById('input-temp').value);
+            const wind = parseFloat(document.getElementById('input-wind').value);
+            const humidity = parseFloat(document.getElementById('input-humidity').value);
+
+            // Formula model for Transpiration Rate (mL/min)
+            // Higher light, higher temp, higher wind -> INCREASES rate
+            // Higher humidity -> DECREASES rate
+            let baseRate = 0.5;
+            let lightFactor = (light / 100) * 1.2;
+            let tempFactor = ((temp - 15) / 30) * 1.0;
+            let windFactor = (wind / 100) * 0.8;
+            let humidityFactor = (1 - (humidity / 100)) * 1.5;
+
+            let totalRate = baseRate + lightFactor + tempFactor + windFactor + humidityFactor;
+            if(totalRate < 0.1) totalRate = 0.1;
+            return totalRate.toFixed(2);
+        }
+
+        function updateLabSimulation() {
+            const light = document.getElementById('input-light').value;
+            const temp = document.getElementById('input-temp').value;
+            const wind = document.getElementById('input-wind').value;
+            const humidity = document.getElementById('input-humidity').value;
+
+            document.getElementById('val-light').innerText = light + '%';
+            document.getElementById('val-temp').innerText = temp + ' °C';
+            
+            let windText = 'Rendah';
+            if(wind > 35) windText = 'Sedang';
+            if(wind > 70) windText = 'Kencang';
+            document.getElementById('val-wind').innerText = windText + ' (' + wind + '%)';
+
+            document.getElementById('val-humidity').innerText = humidity + '%';
+
+            const rate = calculateTranspirationRate();
+            document.getElementById('telemetry-rate').innerHTML = `${rate} <span class="text-xs text-slate-400">mL/menit</span>`;
+
+            // Update Stomata percentage text in telemetry
+            let stomataOpenPercent = Math.min(100, Math.round((parseFloat(rate) / 3.5) * 100));
+            document.getElementById('telemetry-stomata-state').innerText = `Terbuka (${stomataOpenPercent}%)`;
+
+            // Graphic adjustments
+            document.getElementById('visual-sun').style.opacity = (light / 100);
+        }
+
+        function initTranspirationChart() {
+            const ctx = document.getElementById('transpirationChart').getContext('2d');
+            transpirationChartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['0s', '10s', '20s', '30s', '40s', '50s', '60s'],
+                    datasets: [{
+                        label: 'Akumulasi Air Terisap (mL)',
+                        data: [0, 0, 0, 0, 0, 0, 0],
+                        borderColor: '#22c55e',
+                        backgroundColor: 'rgba(34, 197, 94, 0.15)',
+                        fill: true,
+                        tension: 0.4,
+                        borderWidth: 3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { labels: { color: '#cbd5e1', font: { size: 11 } } }
+                    },
+                    scales: {
+                        x: { ticks: { color: '#94a3b8' }, grid: { color: '#334155' } },
+                        y: { ticks: { color: '#94a3b8' }, grid: { color: '#334155' }, beginAtZero: true }
+                    }
+                }
+            });
+        }
+
+        function startLabTimer() {
+            if(isSimulating) return;
+            isSimulating = true;
+            accumulatedVolume = 0.0;
+            currentBubblePos = 300;
+
+            const btn = document.getElementById('btn-start-lab');
+            btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Simulasi Berjalan...`;
+            btn.classList.replace('bg-emerald-600', 'bg-amber-600');
+
+            let timeStep = 0;
+            const ratePerSec = calculateTranspirationRate() / 60;
+
+            const interval = setInterval(() => {
+                timeStep += 10;
+                accumulatedVolume += ratePerSec * 10;
+
+                // Move bubble visual leftward (300 down to 100)
+                currentBubblePos = 300 - (accumulatedVolume * 40);
+                if(currentBubblePos < 100) currentBubblePos = 100;
+                document.getElementById('air-bubble').setAttribute('cx', currentBubblePos);
+
+                document.getElementById('telemetry-volume').innerHTML = `${accumulatedVolume.toFixed(2)} <span class="text-xs text-slate-400">mL</span>`;
+
+                // Update Chart
+                if(transpirationChartInstance) {
+                    const stepIndex = timeStep / 10;
+                    if(stepIndex <= 6) {
+                        transpirationChartInstance.data.datasets[0].data[stepIndex] = accumulatedVolume.toFixed(2);
+                        transpirationChartInstance.update();
+                    }
+                }
+
+                if(timeStep >= 60) {
+                    clearInterval(interval);
+                    isSimulating = false;
+                    btn.innerHTML = `<i class="fa-solid fa-play"></i> Jalankan Ulang Simulasi (60 dtk)`;
+                    btn.classList.replace('bg-amber-600', 'bg-emerald-600');
+                }
+            }, 500);
+        }
+
+        function recordDataPoint() {
+            const light = document.getElementById('input-light').value;
+            const temp = document.getElementById('input-temp').value;
+            const wind = document.getElementById('val-wind').innerText;
+            const humidity = document.getElementById('input-humidity').value;
+            const rate = calculateTranspirationRate();
+
+            recordedLabData.push({
+                no: recordedLabData.length + 1,
+                light: light + '%',
+                temp: temp + ' °C',
+                wind: wind,
+                humidity: humidity + '%',
+                rate: rate
+            });
+
+            renderLKPDTable();
+            alert('Data pengujian berhasil dicatat ke Lembar Kerja (LKPD Digital)!');
+        }
+
+        function resetLab() {
+            recordedLabData = [];
+            document.getElementById('input-light').value = 50;
+            document.getElementById('input-temp').value = 28;
+            document.getElementById('input-wind').value = 40;
+            document.getElementById('input-humidity').value = 60;
+            updateLabSimulation();
+            renderLKPDTable();
+            if(transpirationChartInstance) {
+                transpirationChartInstance.data.datasets[0].data = [0,0,0,0,0,0,0];
+                transpirationChartInstance.update();
+            }
+            document.getElementById('telemetry-volume').innerHTML = `0.00 <span class="text-xs text-slate-400">mL</span>`;
+            document.getElementById('air-bubble').setAttribute('cx', '300');
+        }
+
+        function renderLKPDTable() {
+            const tbody = document.getElementById('lkpd-data-tbody');
+            if(recordedLabData.length === 0) {
+                tbody.innerHTML = `<tr id="empty-row"><td colspan="6" class="p-4 text-center text-slate-400 italic">Belum ada data dicatat. Silakan lakukan pengujian pada menu Lab Virtual!</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = recordedLabData.map((row) => `
+                <tr class="hover:bg-slate-50 border-b border-slate-100">
+                    <td class="p-3 font-bold text-slate-800">${row.no}</td>
+                    <td class="p-3">${row.light}</td>
+                    <td class="p-3">${row.temp}</td>
+                    <td class="p-3">${row.wind}</td>
+                    <td class="p-3">${row.humidity}</td>
+                    <td class="p-3 font-bold text-emerald-600">${row.rate}</td>
+                </tr>
+            `).join('');
+        }
+
+        function checkLKPDCompletion() {
+            const nama = document.getElementById('lkpd-nama').value;
+            if(!nama) {
+                alert('Mohon isi Identitas Nama Siswa / Ketua Kelompok terlebih dahulu.');
+                return;
+            }
+            alert(`Terima kasih ${nama}! Lembar Kerja Peserta Didik (LKPD) berhasil diverifikasi dan disimpan.`);
+        }
+
+        function printLKPD() {
+            window.print();
+        }
+
+        // QUIZ LOGIC
+        function loadQuizQuestion(index) {
+            const q = quizQuestions[index];
+            document.getElementById('quiz-question-title').innerText = q.question;
+            
+            // Progress Bar & Counter
+            document.getElementById('quiz-progress-text').innerText = `Soal ${index + 1} dari ${quizQuestions.length}`;
+            const progressPercent = ((index + 1) / quizQuestions.length) * 100;
+            document.getElementById('quiz-progress-bar').style.width = `${progressPercent}%`;
+
+            // Options
+            const container = document.getElementById('quiz-options-container');
+            container.innerHTML = q.options.map((opt, optIdx) => {
+                const isSelected = userQuizAnswers[index] === optIdx;
+                const isCorrect = optIdx === q.correct;
+                let optionStyle = "border-slate-200 hover:border-brand-500 bg-white";
+
+                if (userQuizAnswers[index] !== null) {
+                    if (isSelected && isCorrect) optionStyle = "border-emerald-500 bg-emerald-50 text-emerald-900 font-semibold";
+                    else if (isSelected && !isCorrect) optionStyle = "border-red-500 bg-red-50 text-red-900 font-semibold";
+                    else if (isCorrect) optionStyle = "border-emerald-500 bg-emerald-50 text-emerald-900 font-semibold";
+                }
+
+                return `
+                    <button onclick="selectQuizOption(${optIdx})" ${userQuizAnswers[index] !== null ? 'disabled' : ''} class="w-full text-left p-3.5 rounded-2xl border text-xs md:text-sm transition-all flex items-center justify-between ${optionStyle}">
+                        <span>${opt}</span>
+                        ${isSelected ? (isCorrect ? '<i class="fa-solid fa-circle-check text-emerald-600 text-base"></i>' : '<i class="fa-solid fa-circle-xmark text-red-600 text-base"></i>') : ''}
+                    </button>
+                `;
+            }).join('');
+
+            // Explanation box
+            const expBox = document.getElementById('quiz-explanation-box');
+            if(userQuizAnswers[index] !== null) {
+                document.getElementById('quiz-explanation-text').innerText = q.explanation;
+                expBox.classList.remove('hidden');
+            } else {
+                expBox.classList.add('hidden');
+            }
+
+            // Disable / Enable Prev-Next Buttons
+            document.getElementById('btn-prev-question').disabled = (index === 0);
+            const nextBtn = document.getElementById('btn-next-question');
+            if (index === quizQuestions.length - 1) {
+                nextBtn.innerHTML = `Selesai & Lihat Skor <i class="fa-solid fa-trophy ml-1"></i>`;
+            } else {
+                nextBtn.innerHTML = `Berikutnya <i class="fa-solid fa-arrow-right ml-1"></i>`;
+            }
+        }
+
+        function selectQuizOption(optIdx) {
+            userQuizAnswers[currentQuizIndex] = optIdx;
+            loadQuizQuestion(currentQuizIndex);
+        }
+
+        function navigateQuiz(direction) {
+            if (direction === 1 && currentQuizIndex === quizQuestions.length - 1) {
+                showQuizResults();
+                return;
+            }
+            currentQuizIndex += direction;
+            if(currentQuizIndex < 0) currentQuizIndex = 0;
+            if(currentQuizIndex >= quizQuestions.length) currentQuizIndex = quizQuestions.length - 1;
+            loadQuizQuestion(currentQuizIndex);
+        }
+
+        function showQuizResults() {
+            let correctCount = 0;
+            userQuizAnswers.forEach((ans, idx) => {
+                if(ans === quizQuestions[idx].correct) correctCount++;
+            });
+
+            const score = Math.round((correctCount / quizQuestions.length) * 100);
+
+            document.getElementById('quiz-box').classList.add('hidden');
+            document.getElementById('quiz-progress-container').classList.add('hidden');
+            document.getElementById('quiz-result-screen').classList.remove('hidden');
+
+            document.getElementById('quiz-score-badge').classList.remove('hidden');
+            document.getElementById('quiz-score-num').innerText = `${score} / 100`;
+            document.getElementById('final-score-text').innerText = score;
+
+            const evalMsg = document.getElementById('final-eval-message');
+            if(score >= 80) {
+                evalMsg.innerText = "Luar Biasa! Pemahamanmu mengenai fisiologi pengaturan tumbuhan sangat tajam!";
+            } else if(score >= 60) {
+                evalMsg.innerText = "Bagus! Kamu sudah memahami konsep dasar. Tinjau kembali materi fitohormon untuk nilai sempurna.";
+            } else {
+                evalMsg.innerText = "Tetap Semangat! Pelajari kembali subtopik materi dan ulangi eksperimen Lab Virtual.";
+            }
+        }
+
+        function restartQuiz() {
+            userQuizAnswers = new Array(quizQuestions.length).fill(null);
+            currentQuizIndex = 0;
+            document.getElementById('quiz-result-screen').classList.add('hidden');
+            document.getElementById('quiz-box').classList.remove('hidden');
+            document.getElementById('quiz-progress-container').classList.remove('hidden');
+            loadQuizQuestion(0);
+        }
+
+        // INITIALIZATION ON LOAD
+        window.onload = function() {
+            updateLabSimulation();
+            loadQuizQuestion(0);
+        };
+    </script>
+</body>
+</html>
