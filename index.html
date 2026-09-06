@@ -12,6 +12,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- Chart.js for Lab Data -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- MathJax for Rendering Math & Chemical Formulas -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <script>
         tailwind.config = {
@@ -337,7 +339,7 @@
                             <div class="w-10 h-10 bg-teal-100 text-teal-700 rounded-xl flex items-center justify-center font-bold text-lg">2</div>
                             <div>
                                 <h3 class="text-2xl font-bold text-slate-900">Mekanisme Membuka dan Menutupnya Stomata</h3>
-                                <p class="text-sm text-slate-500">Pengaturan laju penguapan air dan pertukaran gas $CO_2 / O_2$</p>
+                                <p class="text-sm text-slate-500">Pengaturan laju penguapan air dan pertukaran gas CO<sub>2</sub> / O<sub>2</sub></p>
                             </div>
                         </div>
 
@@ -352,10 +354,10 @@
                                         <i class="fa-solid fa-sun text-amber-500"></i> Saat Stomata MEMBUKA (Siang Hari)
                                     </h5>
                                     <ol class="list-decimal list-inside text-xs text-slate-700 space-y-1">
-                                        <li>Cahaya merangsang transpor aktif ion <strong class="text-emerald-800 font-semibold">Kalium ($K^+$)</strong> masuk ke dalam sel penjaga.</li>
-                                        <li>Konsentrasi zat terlarut naik $\rightarrow$ Sel penjaga menjadi <strong>hipertonis</strong>.</li>
+                                        <li>Cahaya merangsang transpor aktif ion <strong class="text-emerald-800 font-semibold">Kalium (K<sup>+</sup>)</strong> masuk ke dalam sel penjaga.</li>
+                                        <li>Konsentrasi zat terlarut naik &rarr; Sel penjaga menjadi <strong>hipertonis</strong>.</li>
                                         <li>Air dari sel tetangga masuk secara <strong>osmosis</strong> ke sel penjaga.</li>
-                                        <li>Tekanan turgor meningkat, sel membengkak dan melengkung $\rightarrow$ Celah Stomata Terbuka!</li>
+                                        <li>Tekanan turgor meningkat, sel membengkak dan melengkung &rarr; Celah Stomata Terbuka!</li>
                                     </ol>
                                 </div>
 
@@ -364,10 +366,10 @@
                                         <i class="fa-solid fa-moon text-slate-600"></i> Saat Stomata MENUTUP (Malam / Kekeringan)
                                     </h5>
                                     <ol class="list-decimal list-inside text-xs text-slate-700 space-y-1">
-                                        <li>Ion $K^+$ keluar dari sel penjaga (atau akibat rangsangan <strong>Hormon ABA</strong> saat stres air).</li>
+                                        <li>Ion K<sup>+</sup> keluar dari sel penjaga (atau akibat rangsangan <strong>Hormon ABA</strong> saat stres air).</li>
                                         <li>Sel penjaga menjadi <strong>hipotonis</strong>.</li>
                                         <li>Air keluar dari sel penjaga menuju sel tetangga secara osmosis.</li>
-                                        <li>Tekanan turgor merosot, sel menjadi flasid (mengecil) $\rightarrow$ Celah Stomata Menutup.</li>
+                                        <li>Tekanan turgor merosot, sel menjadi flasid (mengecil) &rarr; Celah Stomata Menutup.</li>
                                     </ol>
                                 </div>
                             </div>
@@ -913,16 +915,16 @@
         // QUIZ DATA (5 High Quality HOTS Questions for Biology Class XI)
         const quizQuestions = [
             {
-                question: "1. Pada siang hari yang cerah, sel penjaga pada stomata akan memompa ion Kalium (K+) ke dalam selnya secara aktif. Akibat dari peristiwa tersebut adalah...",
+                question: "1. Pada siang hari yang cerah, sel penjaga pada stomata akan memompa ion Kalium (K<sup>+</sup>) ke dalam selnya secara aktif. Akibat dari peristiwa tersebut adalah...",
                 options: [
                     "A. Potensial air sel penjaga naik, air keluar secara osmosis, stomata menutup.",
                     "B. Sel penjaga menjadi hipertonis, air masuk secara osmosis, tekanan turgor naik, stomata membuka.",
                     "C. Tekanan turgor sel penjaga turun mendadak, sel menjadi flasid, stomata membuka.",
                     "D. Asam absisat (ABA) disintesis secara masif untuk menahan penguapan.",
-                    "E. Konsentrasi CO2 di ruang antar sel naik pesat sehingga stomata terdesak menutup."
+                    "E. Konsentrasi CO<sub>2</sub> di ruang antar sel naik pesat sehingga stomata terdesak menutup."
                 ],
                 correct: 1,
-                explanation: "Saat ion K+ dipompa masuk, sel penjaga menjadi hipertonis. Hal ini memicu osmosis air dari sel tetangga masuk ke dalam sel penjaga. Peningkatan tekanan turgor membuat sel membengkak dan melengkung, membuka celah stomata."
+                explanation: "Saat ion K<sup>+</sup> dipompa masuk, sel penjaga menjadi hipertonis. Hal ini memicu osmosis air dari sel tetangga masuk ke dalam sel penjaga. Peningkatan tekanan turgor membuat sel membengkak dan melengkung, membuka celah stomata."
             },
             {
                 question: "2. Pohon Redwood di California dapat menyalurkan air hingga ketinggian lebih dari 90 meter dari tanah tanpa pompa mekanis. Kombinasi faktor utama yang paling berperan mendorong air naik setinggi itu di dalam xilem adalah...",
@@ -1011,8 +1013,8 @@
         function showConceptDetail(type) {
             const box = document.getElementById('concept-detail-box');
             const details = {
-                'transport': `<strong>Transportasi Air & Nutrisi:</strong> Air masuk melalui rambut akar secara osmosis $\\rightarrow$ melintasi korteks (jalur apoplas & simplas) $\\rightarrow$ menembus Pita Kaspari endodermis $\\rightarrow$ pembuluh Xilem. Air naik karena kombinasi tekanan akar, kapilaritas xilem, dan daya isap transpirasi daun.`,
-                'transpirasi': `<strong>Transpirasi & Mekanisme Stomata:</strong> Transpirasi adalah penguapan air dari permukaan tumbuhan (terutama stomata). Pembukaan stomata diatur oleh kenaikan tekanan turgor sel penjaga saat ion $K^+$ masuk pada siang hari.`,
+                'transport': `<strong>Transportasi Air & Nutrisi:</strong> Air masuk melalui rambut akar secara osmosis &rarr; melintasi korteks (jalur apoplas & simplas) &rarr; menembus Pita Kaspari endodermis &rarr; pembuluh Xilem. Air naik karena kombinasi tekanan akar, kapilaritas xilem, dan daya isap transpirasi daun.`,
+                'transpirasi': `<strong>Transpirasi & Mekanisme Stomata:</strong> Transpirasi adalah penguapan air dari permukaan tumbuhan (terutama stomata). Pembukaan stomata diatur oleh kenaikan tekanan turgor sel penjaga saat ion K<sup>+</sup> masuk pada siang hari.`,
                 'hormon': `<strong>Fitohormon:</strong> Regulator kimia tumbuhan yang meliputi Auksin (pemanjangan), Sitokinin (pembelahan sel), Giberelin (perkecambahan), ABA (penutupan stomata saat stres), Gas Etilen (pematangan buah), Traumalin (penyembuhan luka), dan Kalin (organogenesis).`,
                 'gerak': `<strong>Sistem Gerak:</strong> Respon tumbuhan terhadap rangsangan. Terdiri dari Tropisme (arah gerak tergantung arah rangsang, contoh: Fototropisme), Nasti (arah tidak tergantung arah rangsang, contoh: Seismonasti Putri Malu), dan Taktis (gerak berpindah tempat).`
             };
